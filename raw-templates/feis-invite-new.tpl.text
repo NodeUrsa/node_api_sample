@@ -1,0 +1,19 @@
+Welcome to iFèis!
+
+iFèis has been in development for several years and is the first step in integrating all aspects of
+Fèis management.  We have a roadmap of new features that will be released as quickly as possible.
+
+iFèis is a collaborative effort by individuals who have been involved with fèis management for many
+years. The iFèis philosophy is continuous quality improvement so we always welcome and encourage
+any feedback.
+
+Per your agreement with iFèis, there will be a fee of ${{= fee }}/per competitor, less any discount,
+assessed at the time of the individual registration, and we will withhold a deposit of ${{= deposit }}
+from your Fèis revenue pending the return of any iFèis provided equipment. The Deposit, less any fee
+for late registrations or charges for damaged equipment, will be returned 10 business days after
+reciept of iFèis equipment.
+
+Simply visit the link below to start creating your feis!
+
+{{= $base_url }}/feiseanna/create/{{= id }}
+

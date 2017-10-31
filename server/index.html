@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html ng-app="ifeis">
+  <head>
+    <title>iFeis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <base href="/" />
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.2/outdatedbrowser.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="<%= cdn %>/ifeis.min.css">
+  </head>
+  <body layout="column" md-theme="default" class="ifeis">
+    <div class="page-loading-mask" layout="row" layout-align="center center" ng-hide="pageLoaded">
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+      <div layout-fill layout="column" ng-controller="MainNavController as nav">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <span>ifeis</span>
+            <span flex></span>
+            <md-button ng-click="nav.close()" class="md-primary">
+              <i class="fa fa-close"></i>
+            </md-button>
+          </div>
+        </md-toolbar>
+
+        <md-content flex>
+          <md-list class="menu">
+            <md-list-item class="menu-item"
+                          ng-click="nav.go( 'home' )"
+                          ui-sref="home"
+                          ui-sref-active="active">
+              <p>Home</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="dashboard"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'dashboard' )">
+              <p>Dashboard</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="feiseanna"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'feiseanna' )">
+              <p>Feiseanna</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="results"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'results' )">
+              <p>Results</p>
+            </md-list-item>
+
+            <md-list-item ng-hide="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="login"
+                          ng-click="nav.go( 'login' )"
+                          ui-sref-active="active">
+              <p>Login/Register</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="login"
+                          ng-click="nav.logout()"
+                          ui-sref-active="active">
+              <p>Logout</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isLoggedIn()"
+                          class="menu-item"
+                          ui-sref="account.profile"
+                          ui-sref-active="active"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'account.profile' )">
+              <p>My Profile</p>
+            </md-list-item>
+
+            <md-list-item ng-show="nav.fSession.isGod()"
+                          class="menu-item"
+                          ui-sref="admin.dashboard"
+                          ui-sref-active="active"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'admin.dashboard' )">
+              <p>Admin</p>
+            </md-list-item>
+
+            <md-list-item class="menu-item" href="mailto:support@ifeis.net">
+              <p>Contact Support</p>
+            </md-list-item>
+
+            <md-subheader ng-show="nav.feiseanna && nav.feiseanna.length > 0">Your Feiseanna</md-subheader>
+
+            <md-list-item class="menu-item"
+                          ng-repeat="feis in nav.feiseanna"
+                          ui-sref="feiseanna.one(feis.feis)"
+                          ui-sref-active="active"
+                          ng-click="nav.go( 'feiseanna.one', feis.feis )">
+              <p>{{ feis.feis.name }}</p>
+              <md-icon class="md-secondary fa fa-cog"
+                       ng-click="nav.go( 'feiseanna.one.manager', feis.feis )"
+                       ng-show="feis.grants.length>0"></md-icon>
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </div>
+    </md-sidenav>
+
+    <div ui-view layout="column" layout-fill flex>
+    </div>
+
+    <div id="outdated">
+      <h6>Your browser is out-of-date!</h6>
+      <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+      <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.2/outdatedbrowser.min.js"></script>
+    <script>
+      function ready(fn) {
+        if (document.readyState != 'loading'){
+          fn();
+        } else if (document.addEventListener) {
+          document.addEventListener('DOMContentLoaded', fn);
+        } else {
+          document.attachEvent('onreadystatechange', function() {
+            if (document.readyState != 'loading')
+              fn();
+          });
+        }
+      }
+
+      ready(function () {
+        outdatedBrowser({
+          bgColor: '#f25648',
+          color: '#ffffff',
+          lowerThan: 'IE11',
+          languagePath: ''
+        });
+      });
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-cookies.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-messages.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-scroll/0.7.2/angular-scroll.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.1.9/js/xeditable.min.js"></script>
+		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <!-- iFeis Scripts -->
+    <script type="text/javascript" src="<%= cdn %>/ifeis.min.js"></script>
+
+    <script>
+      angular.module( 'ifeis.config', [ 'ifeis.stripe' ] )
+      .run( function( fStripe ) {
+        fStripe.setStripeKey( '<%= stripe.public_key %>' );
+      })
+      ;
+    </script> <!-- /ifeis -->
+
+    <!-- LiveAgent help desk -->
+    <script id="f-liveagent-contact" type="text/javascript"> (function(d, src, c) { var t=d.scripts[d.scripts.length - 1],s=d.createElement('script');s.id='la_x2s6df8d';s.async=true;s.src=src;s.onload=s.onreadystatechange=function(){var rs=this.readyState;if(rs&&(rs!='complete')&&(rs!='loaded')){return;}c(this);};t.parentElement.insertBefore(s,t.nextSibling);})(document, 'https://ifeis.ladesk.com/scripts/track.js', function(e){ LiveAgent.createButton('978bfbcc', e); }); </script>
+    <!-- /liveagent -->
+  </body>
+</html>
+

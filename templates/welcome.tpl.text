@@ -1,0 +1,15 @@
+Hi, {{= fname }}!
+
+Welcome to ifeis! Now that you're a
+member, why not take a minute and
+complete your profile or find a feis near
+you?
+
+Complete your profile ( {{= $base_url }}/profile )
+Find a Feis ( {{= $base_url }}/feiseanna )
+
+— The ifeis Team
+
+Follow @ifeis ( http://twitter.com/ifeis ) on
+Twitter.
+

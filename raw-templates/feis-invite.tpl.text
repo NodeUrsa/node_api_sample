@@ -1,0 +1,19 @@
+You're Invited to Create a Feis!
+
+You will be charged a fee of
+${{= fee }}/per competitor
+and we will withhold a deposit of
+${{= deposit }} pending
+the return of any rented equipment.
+
+Simply visit the link below to start
+creating your feis! There should
+probably be additional information and/or
+instructions here, otherwise this
+one sentence is just too darn short for a
+paragraph.
+
+{{= $base_url }}/feiseanna/create/{{= id }}
+
+Thanks for choosing ifeis!
+

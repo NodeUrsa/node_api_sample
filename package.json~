@@ -1,0 +1,72 @@
+{
+  "name": "ifeis-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "gulp",
+    "test": "mocha --compilers js:babel-register --reporter spec --timeout 4000 --slow 50 'lib/**/*.spec.js' 'server/**/*.spec.js'",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshdmiller/ifeis-api.git"
+  },
+  "author": "Josh David Miller <josh@joshdavidmiller.com>",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/joshdmiller/ifeis-api/issues"
+  },
+  "homepage": "https://ifeis.net",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "connect-multiparty": "^2.0.0",
+    "gulp": "^3.9.0",
+    "gulp-inline-css": "^3.0.0",
+    "gulp-inline-source": "^2.1.0",
+    "mocha": "2.1.0",
+    "nodemon": "^1.8.1",
+    "rimraf": "^2.4.3",
+    "should": "4.4.1",
+    "sinon": "1.12.2",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^1.1.0",
+    "supertest-as-promised": "^2.0.2"
+  },
+  "dependencies": {
+    "administer": "0.0.8",
+    "aws-sdk": "2.1.4",
+    "babel": "^6.5.2",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.11.6",
+    "body-parser": "^1.13.3",
+    "cookie-parser": "^1.3.5",
+    "cors": "^2.7.1",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "express-fileuploader": "0.0.7",
+    "express-fileuploader-s3": "0.0.1",
+    "express-session": "^1.11.3",
+    "highland": "^2.5.1",
+    "ifeis-isomorphic": "git+ssh://git@github.com:joshdmiller/ifeis-isomorphic",
+    "lodash.template": "2.4.1",
+    "neo4j-js": "0.0.8",
+    "passport": "^0.3.0",
+    "passport-facebook": "^2.0.0",
+    "passport-google-oauth": "^0.2.0",
+    "querystring": "^0.2.0",
+    "request": "^2.61.0",
+    "shortid": "2.1.3",
+    "stampit": "^2.1.0",
+    "stripe": "^3.7.1"
+  }
+}
